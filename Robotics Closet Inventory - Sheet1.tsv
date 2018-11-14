@@ -1,0 +1,75 @@
+3D Printed Arm Parts	33 x 21 x 12.5	Arm	0.7
+Hand Parts	41 x 41 x 36	Arm	1
+Springs	33 x 21 x 12.5	Chassis	0.5
+Nuts and Bolts	31 x 21 x 13	Chassis	0.9
+6-32 and 10-32 Bolts and Nuts	33 x 21 x 12.5	Chassis	0.5
+Electronics Pliers	33 x 21 x 12.5	Electronics	0.1
+Heat Shrink	33 x 21 x 12.5	Electronics	0.3
+Arduinos	33 x 21 x 12.5	Electronics	0.01
+Wire Spools	33 x 21 x 12.5	Electronics	0.6
+Small Scrap Wire	33 x 21 x 12.5	Electronics	0.5
+Big Scrap Wire	33 x 21 x 12.5	Electronics	0.5
+Motor Controllers x2	33 x 21 x 12.5	Electronics	0.1
+Soldering Equipment	33 x 21 x 12.5	Electronics	0.9
+Soldering Practice	33 x 21 x 12.5	Electronics	0.4
+Breadboards	33 x 21 x 12.5	Electronics	0.9
+AA Battery Packs	33 x 21 x 12.5	Electronics	0.01
+Servo Motors	33 x 21 x 12.5	Electronics	0.1
+Large Chargers	33 x 21 x 12.5	Electronics	0.3
+Barrel Jacks	33 x 21 x 12.5	Electronics	0.3
+Small Chargers	33 x 21 x 12.5	Electronics	0.3
+3-Cell LiPo Batteries	33 x 21 x 12.5	Electronics	0.4
+6-Cell LiPo Batteries x2	33 x 21 x 12.5	Electronics	0.7
+Random Motors	33 x 21 x 12.5	Electronics	0.05
+Tiny LiPo Batteries	33 x 21 x 12.5	Electronics	0.05
+Wall Power Supplies	33 x 21 x 12.5	Electronics	0.3
+Antenna Stuff	33 x 21 x 12.5	Electronics	0.1
+Jumper Wire	24 x 25 x 5	Electronics	0.3
+LEDs	28 x 18 x 5	Electronics	0.3
+Push Buttons/Switches	28 x 18 x 5	Electronics	0.3
+Heat Sinks	28 x 18 x 5	Electronics	0.3
+SMD 1K+	28 x 18 x 5	Electronics	0.3
+POE/Bullet Connectors/7-segment Displays	28 x 18 x 5	Electronics	0.3
+Various Chips	28 x 18 x 5	Electronics	0.3
+Headers	28 x 18 x 5	Electronics	0.3
+Long Potentiometers	28 x 18 x 5	Electronics	0.3
+Encoders	28 x 18 x 5	Electronics	0.3
+Capacitors	28 x 18 x 5	Electronics	0.3
+Voltage Regulators	28 x 18 x 5	Electronics	0.3
+Logic Gates	28 x 18 x 5	Electronics	0.3
+Small SMD	28 x 18 x 5	Electronics	0.3
+Surface-Mount Capacitors	28 x 18 x 5	Electronics	0.3
+Crimps	28 x 18 x 5	Electronics	0.3
+Molex Connectors	36 x 13 x 5	Electronics	0.3
+Soldering Irons x3	15 x 15 x 25	Electronics	0.7
+Electronics Toolbag	30 x 45 x 26	Electronics	0.5
+Sketchy Power Supply	20 x 15 x 19	Electronics	0.5
+Power Distribution Board Parts	33 x 21 x 12.5	Electronics	1
+Prototypes	33 x 21 x 12.5	Electronics	1
+Expensive motor	38 x 52 x 20	Electronics	0.2
+Velcro	33 x 21 x 12.5	Misc	0.3
+Bungee Cords	33 x 21 x 12.5	Misc	0.1
+String and fishing line	33 x 21 x 12.5	Misc	0.1
+Hot Glue Guns	33 x 21 x 12.5	Misc	0.2
+Welding Equipment	33 x 21 x 12.5	Misc	0.1
+Tape Dispenser	17 x 26 x 8	Misc	0.01
+Burnt out motors	33 x 21 x 12.5	Misc	0.01
+Sand	33 x 21 x 12.5	Misc	0.01
+wtf	33 x 21 x 12.5	Misc	0
+Old laptop	75 x 55 x 14	Misc	0.01
+Drill Parts	33 x 21 x 12.5	Science	0.2
+Science Sensors	33 x 21 x 12.5	Science	0.1
+Science Lab Stuff	33 x 21 x 12.5	Science	0.1
+Misc Science	33 x 21 x 12.5	Science	0.1
+X-Ray Box	59 x 32 x 26	Science	0.1
+Submicron Filtered Water	56 x 24 x 24	Science	0.2
+Chemicals	23 x 26 x 18	Science	0.2
+Ricoh Camera	33 x 21 x 12.5	Software	0.3
+Ethernet Cables	33 x 21 x 12.5	Software	0.5
+Gamepads	33 x 21 x 12.5	Software	0.2
+Beaglebones	33 x 21 x 12.5	Software	0.3
+Sensors	33 x 21 x 12.5	Software	0.3
+USB Cables	33 x 21 x 12.5	Software	0.3
+Ethernet Switch / Power over Ethernet	33 x 21 x 12.5	Software	0.4
+NVidia Jetson x3	24 x 21 x 14	Software	1
+Minibot	25.4 x 19.05 x 11.4	Software	0.3
