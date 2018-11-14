@@ -39,3 +39,4 @@ for line in f:
     })
 f.close()
 
+m = Model()
