@@ -17,6 +17,9 @@
 \usepackage{graphicx}
 \usepackage{xcolor}
 \graphicspath{{.}}
+\newtheoremstyle{named}{}{}{}{}{\bfseries}{.}{.5em}{\thmnote{#3}}
+\theoremstyle{named}
+\newtheorem*{nthm}{Theorem}
 \title{Optimizing the Robotics Closet}
 \author{Sasha Krassovsky, John Lim, Andrey Ryabtsev}
 \begin{document}
@@ -47,7 +50,7 @@ The closet has two shelves, one on each side. One side stores items in
 uniformly-sized boxes while the other side has several other classes of items,
 such as soldering irons, and boxes of various sizes. The rover is stored in
 the middle of the room on a big cart. Behind it is the robotic arm and the
-science station. In the back are the sheet metal, various metallic cylinders,
+vscience station. In the back are the sheet metal, various metallic cylinders,
 wood, and rolls of carbon fiber. By examining the frequencies of retrieval
 by each team and treating the closet as a grid, we should be able to produce
 a better layout of the closet.
@@ -80,6 +83,68 @@ are not strictly rectangle-shaped, it would be strange for another item reached 
 the empty areas of the items' bounding boxes. Taking advantage of this, we approximate
 all items as being rectangular prisms, and measure their bounding boxes.
 \par
+\textbf{\color{red} TODO: Fill in the rest of the assumptions}
+
 \section{Model}
+We collected data from the robotics closet by measuring each item and shelf. Each
+shelf $s$ is represented as an ordered triple $(d, a, c)$, where $d$ is the
+distance from the door in ``shelf-lengths'', $a$ is the area of the shelf, and
+$c$ is the connected components to which the self belongs.
+\par
+Each item is represented with an ordered triple $(a, p, s)$, where $a$ is the area
+of the item, $p$ is the probability that the item is selected, and $s$ is the item's
+subsystem. Notice that we represent each item as a 2-dimensional area. This is valid
+because we assumed that each shelf had a single unit of depth. As a preprocessing step,
+we choose to minimize the area. However, we cannot rotate always the item into a
+horizontal orientation. Therefore, $h$ is constant. For an item $i$ with length $l_i$,
+width $w_i$, and height $h_i$, its area $a_i$ is given by 
+$$a_i = \min(l_i, w_i) \cdot h_i$$
+\par
+Let there be $n$ shelves and $m$ items, $k$ subsystems, and $l$ is the number of
+connected components. Our decision variables lie in two matrices
+$$W = (w_{ij}), 1 \leq i \leq n, 1 \leq j \leq m$$
+$$C = (c_{ij}), 1 \leq i \leq l, 1 \leq j \leq k$$
+Each $w_{ij}$ and $c_{ij}$ is a binary variable, i.e. each $w_{ij}, c_{ij} \in {0, 1}$.
+Each $w_{ij}$ is $0$ if item $j$ is not on shelf $i$ and $1$ otherwise. $c_{ij}$ is
+$1$ if subsystem $j$ lies in connected component $i$ and $0$ otherwise. 
+$C$ is a $l \times k$ matrix because there are l connected components and k subsystems. \\
+Note about notation: $a^i_k$ indicates the area of item $k$ while $a^s_k$ indicates the
+area of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
+$x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. 
+\par
+The model is subject to the following constraints:
+\begin{enumerate}
+\item $\sum_{j = 1}^{m}w_{ij}a^i_j \leq w^s_i, 1 \leq i \leq n$.
+\item $\sum_{j = 1}^{n}w_{ji} = 1, 1 \leq i \leq m$.
+\item $\sum_{j = 1}^{l}c_{ji} = 1, 1 \leq i \leq k$.
+\item Let $K$ be the set of indices of items belonging to subsystem $i$. Let
+  Let $L$ be the set of indices of shelves belonging to connected component $j$.
+  Then $\sum_{a \in K}\sum_{b \in L}w_{ba} = |K| \cdot c_{ji}, 1 \leq i \leq k, 1 \leq j \leq l$.
+\end{enumerate}
+Since each probability $p$ is less than 1, we incentivize putting items with higher probability
+in the front by multiplying the probability by the distance. Thus, our objective function
+becomes
+$$\min z = \sum_{i = 1}^{n}\sum_{j = 1}^{m} d_j p_i w_{ij}$$
+
+\textbf{Explanation of Constraints:}
+\begin{enumerate}
+\item The sum of all of the items on a given shelf must be less than or equal to
+  the maximum area that the shelf can support. We multiply by $w_{ji}$ so that
+  items not included on the shelf are not counted.
+\item Each column of $W$ can only have one $1$, because we cannot put an item
+  on two shelves simultaneously. Since each row represents a shelf, we simply
+  traverse the whole column and ensure its sum is exactly $1$. Notice that if
+  we had put $\leq 1$, the constraint would have been invalid because then
+  no items would have been included. Thus, this constraint implicitly enforces
+  the constraint that every item be included.
+\item Each column of $C$ can only have one $1$ because all items belonging to
+  a subsystem must be in the same connected component, and therefore a subsystem
+  can be in exactly one connected component. Similarly to constraint 2, summing
+  this and ensuring that the sum is 1 enforces the idea that every subsystem is
+  included.
+\item The intuition behind this constraint is that either all items belonging
+  to a subsystem are in the same connected component, or none are. Thus, we
+  use the decision variable $c_{ji}$ to choose whether the sum is $0$ or not.
+\end{enumerate}
 
 \end{document}

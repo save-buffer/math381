@@ -26,7 +26,7 @@ for line in f:
 f.close()
 
 shelves = []
-f = open('shelfdim.tsv')
+f = open('shelfdim.tsv', 'r')
 for line in f:
     substrs = line.split('\t')
     dist = int(substrs[0])
