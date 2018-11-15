@@ -49,6 +49,12 @@ for shelf in shelves:
     for item in items:
         decisions[-1].append(m.addVar(vtype=GRB.BINARY))
 
+connected_comp_decisions = []
+for i in range(3):
+    connected_comp_decisions.append([])
+    for j in range(len(subs)):
+        connected_comp_decisions[-1].append(m.addVar(vtype=GRB.BINARY))
+        
 assert len(decisions) == len(shelves)
 
 # Area constraints per shelf
@@ -66,17 +72,28 @@ for i in range(len(items)):
         constr = constr + decisions[j + 1][i]
     m.addConstr(constr == 1)
 
+# A subsystem can only go into one connected component
+for sub in range(len(subs)):
+    expr = sum([x[sub] for x in connected_comp_decisions])
+    m.addConstr(expr == 1)
+
 # Items from the same subsystem must be in the same connected component
 for sub in range(len(subs)):
     item_indices = [i for i in range(len(items)) if items[i]['sub'] == sub]
     for component in range(3):
         shelf_indices = [i for i in range(len(shelves)) if shelves[i]['comp'] == component]
-        expr = sum(sum([decisions[j][i] for j in shelf_indices]) for i in item_indices)
-        m.addConstr(expr == [0, len(item_indices)])
+        expr = sum([sum([decisions[j][i] for j in shelf_indices]) for i in item_indices])
+        m.addConstr(expr == (len(item_indices) * connected_comp_decisions[component][sub]))
 
 # Objective Function
-obj = sum(sum([shelf['dist'] / item['prob'] for item in items]) for shelf in shelves)
+obj = sum(sum([shelves[j]['dist'] * items[i]['prob'] * decisions[j][i] for i in range(len(items))]) for j in range(len(shelves)))
 m.setObjective(obj, GRB.MINIMIZE)
 
 m.update()
 m.optimize()
+
+for shelf in range(len(shelves)):
+    print('Shelf %d (connected component %d, distance %d):' % (shelf, shelves[shelf]['comp'], shelves[shelf]['dist']))
+    names = [items[x]['name'] for x in range(len(decisions[shelf])) if decisions[shelf][x].X > 0]
+    for item in names:
+        print('\t' + item)

@@ -19,7 +19,8 @@ Large Chargers	33 x 21 x 12.5	Electronics	0.3
 Barrel Jacks	33 x 21 x 12.5	Electronics	0.3
 Small Chargers	33 x 21 x 12.5	Electronics	0.3
 3-Cell LiPo Batteries	33 x 21 x 12.5	Electronics	0.4
-6-Cell LiPo Batteries x2	33 x 21 x 12.5	Electronics	0.7
+6-Cell LiPo Batteries	33 x 21 x 12.5	Electronics	0.7
+6-Cell LiPo Batteries	33 x 21 x 12.5	Electronics	0.7
 Random Motors	33 x 21 x 12.5	Electronics	0.05
 Tiny LiPo Batteries	33 x 21 x 12.5	Electronics	0.05
 Wall Power Supplies	33 x 21 x 12.5	Electronics	0.3
@@ -41,7 +42,9 @@ Small SMD	28 x 18 x 5	Electronics	0.3
 Surface-Mount Capacitors	28 x 18 x 5	Electronics	0.3
 Crimps	28 x 18 x 5	Electronics	0.3
 Molex Connectors	36 x 13 x 5	Electronics	0.3
-Soldering Irons x3	15 x 15 x 25	Electronics	0.7
+Soldering Iron	15 x 15 x 25	Electronics	0.7
+Soldering Iron	15 x 15 x 25	Electronics	0.7
+Soldering Iron	15 x 15 x 25	Electronics	0.7
 Electronics Toolbag	30 x 45 x 26	Electronics	0.5
 Sketchy Power Supply	20 x 15 x 19	Electronics	0.5
 Power Distribution Board Parts	33 x 21 x 12.5	Electronics	1
@@ -71,5 +74,7 @@ Beaglebones	33 x 21 x 12.5	Software	0.3
 Sensors	33 x 21 x 12.5	Software	0.3
 USB Cables	33 x 21 x 12.5	Software	0.3
 Ethernet Switch / Power over Ethernet	33 x 21 x 12.5	Software	0.4
-NVidia Jetson x3	24 x 21 x 14	Software	1
+NVidia Jetson	24 x 21 x 14	Software	1
+NVidia Jetson	24 x 21 x 14	Software	1
+NVidia Jetson	24 x 21 x 14	Software	1
 Minibot	25.4 x 19.05 x 11.4	Software	0.3
