@@ -159,8 +159,13 @@ Only the shelves that have distance 2 (highest distance in the input data set) a
 We noticed that the model packed together very many items while leaving four perfectly good shelves empty. Especially when considering that there are items we likely forgot to catalogue, as well as items that would get added later on, we may consider adding space remaining in shelves as a soft constraint. This could be done by either reducing the width of each shelf or by padding the items on all sides to imply that there must be room between each item. This would also have the added benefit of making items easier to take out, since it is illogicall to stuff some shelves to the last inch while leaving whole drawers to collect dust.
 
 \section{Conclusions}
-
+In conclusion, we are happy to have found an integer programming approach with the aforementioned constraints and objective function to be successful at finding a reasonably optimal arrangement of items. We were able to learn the practical challenges of solving a real-world linear programming problem, whilst still getting a result that has legitemate applications. 
 
 \section{Acknowledgements}
+We would like to thank:
+- Dr. Sara Billey for providing us with guidance throughout the project,
+- Hongyu Cao for supplying us with a paper that inspired a significant portion of our thoughts on the problem,
+- UW Husky Robotics for providing the closet to undergo optimization,
+- Nolan Donovan for working with us to understand and solve this problem.
 
 \end{document}
