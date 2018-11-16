@@ -83,9 +83,23 @@ are not strictly rectangle-shaped, it would be strange for another item reached 
 the empty areas of the items' bounding boxes. Taking advantage of this, we approximate
 all items as being rectangular prisms, and measure their bounding boxes.
 \par
-We also assumed that certain parts of the robotics closet are not to be moved. For example, the shelf containing aluminum brackets and blocks for machining was excluded from the model entirely. This is due to the cumbersome nature of moving hundreds of unboxed chunks of metal, and due to opposition to its transportation by team members who frequently use it. The food pantry portion as well as some non-food items that made their way into it was similarly excluded after brief deliberation. Excluding parts of the closet from the model does not reduce the validity of the remaining optimization since the access to other closets is unaffected by the contents of these.
+We also assumed that certain parts of the robotics closet are not to be moved. For
+example, the shelf containing aluminum brackets and blocks for machining was excluded
+from the model entirely. This is due to the cumbersome nature of moving hundreds of
+unboxed chunks of metal, and due to opposition to its transportation by team members
+who frequently use it. The food pantry portion as well as some non-food items that
+made their way into it was similarly excluded after brief deliberation. Excluding
+parts of the closet from the model does not reduce the validity of the remaining
+optimization since the access to other closets is unaffected by the contents of these.
 \par
-Another simplifying assumption we made is that all drawers have one unit of depth. In other words, we cannot insert items one behind another. This is a valid assumption to make because having to pull an item from behind another would drastically reduce the retrieval time of both items, undoing much of the benefits of our optimization. This can be adjusted to be a soft constraint (penalize heavily for items that are one behind another) if the model is infeasible without this change. In the meantime, we are reasonably confident that disallowing multiple units of depth is the best approach keeping in mind our ultimate goal of convenience.
+Another simplifying assumption we made is that all drawers have one unit of depth.
+In other words, we cannot insert items one behind another. This is a valid assumption
+to make because having to pull an item from behind another would drastically reduce the
+retrieval time of both items, undoing much of the benefits of our optimization. This
+can be adjusted to be a soft constraint (penalize heavily for items that are one
+behind another) if the model is infeasible without this change. In the meantime, we
+are reasonably confident that disallowing multiple units of depth is the best
+approach keeping in mind our ultimate goal of convenience.
 
 
 \section{Model}
