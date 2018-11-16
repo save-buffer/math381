@@ -150,4 +150,17 @@ $$\min z = \sum_{i = 1}^{n}\sum_{j = 1}^{m} d_j p_i w_{ij}$$
   use the decision variable $c_{ji}$ to choose whether the sum is $0$ or not.
 \end{enumerate}
 
+\section{Solution and Results}
+We used the Gurobi optimization library to solve the formulated integer programming problem. The results placed 11 items into Shelf 5, 16 items into Shelf 6, 13 items into Shelf 7, 13 items into Shelf 8, 11 items into Shelf 9, 2 into 10, 1 into 11, 2 into 12, and 11 into 13. The remaining shelves had no items placed in them. This confirmed our intuition that there was plenty of space for the items even with the single depth layer constraint. A brief examination of the items allocated to each specific shelf provides support for validity of the model; it is not difficult to imagine the items listed placed compactly, but plausibly.
+\par
+Only the shelves that have distance 2 (highest distance in the input data set) are left empty. This is an indication that proximity is, in fact, taken into account by the model. Finally, LiPo batteries are placed onto the same drawer, as are NVIDIA Jetsons and other closely related items. This validates that the connected components constraint is being considered.
+
+\section{Improvements}
+We noticed that the model packed together very many items while leaving four perfectly good shelves empty. Especially when considering that there are items we likely forgot to catalogue, as well as items that would get added later on, we may consider adding space remaining in shelves as a soft constraint. This could be done by either reducing the width of each shelf or by padding the items on all sides to imply that there must be room between each item. This would also have the added benefit of making items easier to take out, since it is illogicall to stuff some shelves to the last inch while leaving whole drawers to collect dust.
+
+\section{Conclusions}
+
+
+\section{Acknowledgements}
+
 \end{document}
