@@ -9,7 +9,8 @@ Arduinos	33 x 21 x 12.5	Electronics	0.01
 Wire Spools	33 x 21 x 12.5	Electronics	0.6
 Small Scrap Wire	33 x 21 x 12.5	Electronics	0.5
 Big Scrap Wire	33 x 21 x 12.5	Electronics	0.5
-Motor Controllers x2	33 x 21 x 12.5	Electronics	0.1
+Motor Controllers 	33 x 21 x 12.5	Electronics	0.1
+Motor Controllers 	33 x 21 x 12.5	Electronics	0.1     
 Soldering Equipment	33 x 21 x 12.5	Electronics	0.9
 Soldering Practice	33 x 21 x 12.5	Electronics	0.4
 Breadboards	33 x 21 x 12.5	Electronics	0.9
@@ -67,14 +68,14 @@ Misc Science	33 x 21 x 12.5	Science	0.1
 X-Ray Box	59 x 32 x 26	Science	0.1
 Submicron Filtered Water	56 x 24 x 24	Science	0.2
 Chemicals	23 x 26 x 18	Science	0.2
-Ricoh Camera	33 x 21 x 12.5	Software	0.3
+Ricoh Camera	33 x 21 x 12.5	Software	0.1
 Ethernet Cables	33 x 21 x 12.5	Software	0.5
 Gamepads	33 x 21 x 12.5	Software	0.2
 Beaglebones	33 x 21 x 12.5	Software	0.3
 Sensors	33 x 21 x 12.5	Software	0.3
 USB Cables	33 x 21 x 12.5	Software	0.3
 Ethernet Switch / Power over Ethernet	33 x 21 x 12.5	Software	0.4
-NVidia Jetson	24 x 21 x 14	Software	1
+NVidia Jetson	24 x 21 x 14	Software	0.2
 NVidia Jetson	24 x 21 x 14	Software	1
 NVidia Jetson	24 x 21 x 14	Software	1
 Minibot	25.4 x 19.05 x 11.4	Software	0.3
