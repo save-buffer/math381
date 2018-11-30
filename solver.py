@@ -32,7 +32,7 @@ for line in f:
     dist = int(substrs[0])
     dims = [float(x) for x in substrs[1].split('x')]
     component = int(substrs[2])
-    horizontal = dims[0] * dims[1]
+    horizontal = dims[0]
     shelves.append({
         'dist' : dist,
         'horizontal' : horizontal,
@@ -62,7 +62,7 @@ for i in range(len(decisions)):
     assert len(decisions[i]) == len(items)
     shelf_length_expr = decisions[i][0] * items[0]['horizontal']    
     for j in range(len(decisions[i]) - 1):
-        shelf_length_expr += decisions[i][j + 1] * items[j + 1]['horizontal']
+        shelf_length_expr = shelf_length_expr + decisions[i][j + 1] * items[j + 1]['horizontal']
     m.addConstr(shelf_length_expr <= shelves[i]['horizontal'])
 
 # Items can only go into one spot
