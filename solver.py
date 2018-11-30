@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 from gurobipy import *
 
+STACKING = 3
 subs = {
     'Chassis' : 0,
     'Arm' : 1,
@@ -33,11 +34,12 @@ for line in f:
     dims = [float(x) for x in substrs[1].split('x')]
     component = int(substrs[2])
     horizontal = dims[0]
-    shelves.append({
-        'dist' : dist,
-        'horizontal' : horizontal,
-        'comp' : component
-    })
+    for _ in range(STACKING):
+        shelves.append({
+            'dist' : dist,
+            'horizontal' : horizontal,
+            'comp' : component
+        })
 f.close()
 
 m = Model()
@@ -92,8 +94,11 @@ m.setObjective(obj, GRB.MINIMIZE)
 m.update()
 m.optimize()
 
-for shelf in range(len(shelves)):
+real_shelves = int(len(shelves) / STACKING)
+for shelf in range(real_shelves):
     print('Shelf %d (connected component %d, distance %d):' % (shelf, shelves[shelf]['comp'], shelves[shelf]['dist']))
-    names = [items[x]['name'] for x in range(len(decisions[shelf])) if decisions[shelf][x].X > 0]
-    for item in names:
-        print('\t' + item)
+    for i in range(STACKING):
+        split_shelf = shelf + real_shelves * i
+        names = [items[x]['name'] for x in range(len(decisions[split_shelf])) if decisions[split_shelf][x].X > 0]
+        for item in names:
+            print('\t' + item)
