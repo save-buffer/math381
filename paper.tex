@@ -92,50 +92,52 @@ made their way into it was similarly excluded after brief deliberation. Excludin
 parts of the closet from the model does not reduce the validity of the remaining
 optimization since the access to other closets is unaffected by the contents of these.
 \par
-Another simplifying assumption we made is that all shelves have one unit of depth.
-In other words, we cannot insert items one behind another. This is a valid assumption
-to make because having to pull an item from behind another would drastically reduce the
-retrieval time of both items, undoing much of the benefits of our optimization. This
-can be adjusted to be a soft constraint (penalize heavily for items that are one
-behind another) if the model is infeasible without this change. In the meantime, we
-are reasonably confident that disallowing multiple units of depth is the best
-approach keeping in mind our ultimate goal of convenience.
+We also assumed that there can be on average 3 items in the same 1-D linear
+segment. This means that by using some combination of placing items behind
+and above other items, we can fit 3 items in that segment. This is a rough
+estimate that we came to empirically. This makes sense because some shelves are
+very deep, and all shelves fit at least 2 of the boxes vertically, since
+the boxes are 12.5 cm tall, and all shelves are taller than 25 cm. 
 \par
-Lastly, we assumed that there can be on average 3 items in the same 1-D linear
-segment. We arrived at this assumption by noticing that the fast majority of
-items are in the same type of box, which are 21 cm wide. Since shelf widths
-range from 74 cm to 91 cm, 3 boxes fit comfortably on three shelves. This
-also has the advantage of providing padding to the items to ease retrieval. 
+The previous assumption let us assume for our model is shelves have one unit of depth
+and one unit of height. In other words, the model does not have to take into account
+insertion of items one behind another. To model height, we make use of the previous
+assumption to ``duplicate'' shelves, defining the duplicates to be above the original
+one. We can model depth in the same way. 
 \section{Model}
 We collected data from the robotics closet by measuring each item and shelf. Each
-shelf $s$ is represented as an ordered triple $(d, a, c)$, where $d$ is the
-distance from the door in ``shelf-lengths'', $a$ is the area of the shelf, and
-$c$ is the connected components to which the self belongs.
+shelf $s$ is represented as an ordered triple $(d, l, c)$, where $d$ is the
+distance from the door in ``shelf-lengths'', $l$ is the length of the shelf, and
+$c$ is the connected component to which the self belongs.
 \par
-Each item is represented with an ordered triple $(a, p, s)$, where $a$ is the area
+Each item is represented with an ordered triple $(l, p, s)$, where $l$ is the length
 of the item, $p$ is the probability that the item is selected, and $s$ is the item's
-subsystem. Notice that we represent each item as a 2-dimensional area. This is valid
-because we assumed that each shelf had a single unit of depth. As a preprocessing step,
-we choose to minimize the area. However, we cannot rotate always the item into a
-horizontal orientation. Therefore, $h$ is constant. For an item $i$ with length $l_i$,
-width $w_i$, and height $h_i$, its area $a_i$ is given by 
-$$a_i = \min(l_i, w_i) \cdot h_i$$
+subsystem. Notice that we represent each item as a 1-dimensional length. This is valid
+because we assumed that each shelf had a single unit of depth and a single
+unit of height. As a preprocessing step, minimize the length. Since we cannot always
+rotate an item into a horizontal orientation, for an item with dimensions $a \times b$
+the item's 1-dimensional length is given by 
+$$l = \min(a, b)$$
 \par
-Let there be $n$ shelves and $m$ items, $k$ subsystems, and $l$ is the number of
-connected components. Our decision variables lie in two matrices
+Let there be $n_0$ shelves and $m$ items, $k$ subsystems, and $n_c$ be the number of
+connected components. In order to simulate stacking and placing behind, we
+multiply the number of shelves by our assumed average number of items per
+1-dimensional block. In our model, we chose 3 as our constant. Thus,
+the total number of shelves in the model is $n = 3n_0$. 
+Our decision variables lie in two matrices
 $$W = (w_{ij}), 1 \leq i \leq n, 1 \leq j \leq m$$
 $$C = (c_{ij}), 1 \leq i \leq l, 1 \leq j \leq k$$
 Each $w_{ij}$ and $c_{ij}$ is a binary variable, i.e. each $w_{ij}, c_{ij} \in {0, 1}$.
 Each $w_{ij}$ is $0$ if item $j$ is not on shelf $i$ and $1$ otherwise. $c_{ij}$ is
 $1$ if subsystem $j$ lies in connected component $i$ and $0$ otherwise. 
-$C$ is a $l \times k$ matrix because there are l connected components and k subsystems. \\
-Note about notation: $a^i_k$ indicates the area of item $k$ while $a^s_k$ indicates the
-area of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
+$C$ is a $n_c \times k$ matrix because there are l connected components and k subsystems. \\
+Note about notation: $l^i_k$ indicates the length of item $k$ while $l^s_k$ indicates the
+length of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
 $x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. 
 \par
 The model is subject to the following constraints:
 \begin{enumerate}
-\item $\sum_{j = 1}^{m}w_{ij}a^i_j \leq w^s_i, 1 \leq i \leq n$.
+\item $\sum_{j = 1}^{m}w_{ij}l^i_j \leq l^s_i, 1 \leq i \leq n$.
 \item $\sum_{j = 1}^{n}w_{ji} = 1, 1 \leq i \leq m$.
 \item $\sum_{j = 1}^{l}c_{ji} = 1, 1 \leq i \leq k$.
 \item Let $K$ be the set of indices of items belonging to subsystem $i$. Let
@@ -149,8 +151,8 @@ $$\min z = \sum_{i = 1}^{n}\sum_{j = 1}^{m} d_j p_i w_{ij}$$
 
 \textbf{Explanation of Constraints:}
 \begin{enumerate}
-\item The sum of all of the items on a given shelf must be less than or equal to
-  the maximum area that the shelf can support. We multiply by $w_{ji}$ so that
+\item The sum the lengths of all of the items on a given shelf must be less than or equal to
+  the maximum length that the shelf can support. We multiply by $w_{ji}$ so that
   items not included on the shelf are not counted.
 \item Each column of $W$ can only have one $1$, because we cannot put an item
   on two shelves simultaneously. Since each row represents a shelf, we simply
@@ -205,7 +207,7 @@ whilst still getting a result that has legitemate applications.
 \section{Acknowledgements}
 We would like to thank:
 \begin{itemize}
-\item Dr. Sara Billey for providing us with guidance throughout the project,
+\item Prof. Sara Billey for providing us with guidance throughout the project,
 \item Hongyu Cao for supplying us with a paper that inspired a significant portion of our thoughts on the problem,
 \item Husky Robotics for providing the closet to undergo optimization,
 \item Nolan Donovan for working with us to understand and solve this problem.

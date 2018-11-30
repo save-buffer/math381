@@ -2,6 +2,7 @@
 from gurobipy import *
 
 STACKING = 3
+NUM_COMPONENTS = 4
 subs = {
     'Chassis' : 0,
     'Arm' : 1,
@@ -52,7 +53,7 @@ for shelf in shelves:
         decisions[-1].append(m.addVar(vtype=GRB.BINARY))
 
 connected_comp_decisions = []
-for i in range(3):
+for i in range(NUM_COMPONENTS):
     connected_comp_decisions.append([])
     for j in range(len(subs)):
         connected_comp_decisions[-1].append(m.addVar(vtype=GRB.BINARY))
@@ -82,7 +83,7 @@ for sub in range(len(subs)):
 # Items from the same subsystem must be in the same connected component
 for sub in range(len(subs)):
     item_indices = [i for i in range(len(items)) if items[i]['sub'] == sub]
-    for component in range(3):
+    for component in range(NUM_COMPONENTS):
         shelf_indices = [i for i in range(len(shelves)) if shelves[i]['comp'] == component]
         expr = sum([sum([decisions[j][i] for j in shelf_indices]) for i in item_indices])
         m.addConstr(expr == (len(item_indices) * connected_comp_decisions[component][sub]))
@@ -96,9 +97,9 @@ m.optimize()
 
 real_shelves = int(len(shelves) / STACKING)
 for shelf in range(real_shelves):
-    print('Shelf %d (connected component %d, distance %d):' % (shelf, shelves[shelf]['comp'], shelves[shelf]['dist']))
+    print('Shelf %d (connected component %d, distance %d):' % (shelf, shelves[shelf * STACKING]['comp'], shelves[shelf * STACKING]['dist']))
     for i in range(STACKING):
-        split_shelf = shelf + real_shelves * i
+        split_shelf = shelf * STACKING + i
         names = [items[x]['name'] for x in range(len(decisions[split_shelf])) if decisions[split_shelf][x].X > 0]
         for item in names:
             print('\t' + item)
