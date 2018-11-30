@@ -16,10 +16,10 @@ for line in f:
     substrs = line.split('\t')
     dims = [float(x) for x in substrs[1].split('x')]
     prob = float(substrs[-1])
-    area = min(dims[0], dims[1]) * dims[2]
+    horizontal = min(dims[0], dims[1])
     items.append({
         'name' : substrs[0],
-        'area' : area,
+        'horizontal' : horizontal,
         'prob' : prob,
         'sub'  : subs[substrs[2]]
     })
@@ -32,10 +32,10 @@ for line in f:
     dist = int(substrs[0])
     dims = [float(x) for x in substrs[1].split('x')]
     component = int(substrs[2])
-    area = dims[0] * dims[1]
+    horizontal = dims[0] * dims[1]
     shelves.append({
         'dist' : dist,
-        'area' : area,
+        'horizontal' : horizontal,
         'comp' : component
     })
 f.close()
@@ -60,10 +60,10 @@ assert len(decisions) == len(shelves)
 # Area constraints per shelf
 for i in range(len(decisions)):
     assert len(decisions[i]) == len(items)
-    shelf_area_expr = decisions[i][0] * items[0]['area']    
+    shelf_length_expr = decisions[i][0] * items[0]['horizontal']    
     for j in range(len(decisions[i]) - 1):
-        shelf_area_expr = shelf_area_expr + decisions[i][j + 1] * items[j + 1]['area']
-    m.addConstr(shelf_area_expr <= shelves[i]['area'])
+        shelf_length_expr += decisions[i][j + 1] * items[j + 1]['horizontal']
+    m.addConstr(shelf_length_expr <= shelves[i]['horizontal'])
 
 # Items can only go into one spot
 for i in range(len(items)):
