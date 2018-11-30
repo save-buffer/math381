@@ -76,7 +76,7 @@ rather than maximize profits.
 
 %\textbf{\color{red} TODO: More related work}
 
-\section{Assumptions}
+\section{Simplifying Assumptions}
 Most items in the robotics closet are in boxes. As a result, we assume that all
 items are rectangular prisms. Although items such as the chemicals or soldering irons
 are not strictly rectangle-shaped, it would be strange for another item reached into
@@ -92,7 +92,7 @@ made their way into it was similarly excluded after brief deliberation. Excludin
 parts of the closet from the model does not reduce the validity of the remaining
 optimization since the access to other closets is unaffected by the contents of these.
 \par
-Another simplifying assumption we made is that all drawers have one unit of depth.
+Another simplifying assumption we made is that all shelves have one unit of depth.
 In other words, we cannot insert items one behind another. This is a valid assumption
 to make because having to pull an item from behind another would drastically reduce the
 retrieval time of both items, undoing much of the benefits of our optimization. This
@@ -100,8 +100,12 @@ can be adjusted to be a soft constraint (penalize heavily for items that are one
 behind another) if the model is infeasible without this change. In the meantime, we
 are reasonably confident that disallowing multiple units of depth is the best
 approach keeping in mind our ultimate goal of convenience.
-
-
+\par
+Lastly, we assumed that there can be on average 3 items in the same 1-D linear
+segment. We arrived at this assumption by noticing that the fast majority of
+items are in the same type of box, which are 21 cm wide. Since shelf widths
+range from 74 cm to 91 cm, 3 boxes fit comfortably on three shelves. This
+also has the advantage of providing padding to the items to ease retrieval. 
 \section{Model}
 We collected data from the robotics closet by measuring each item and shelf. Each
 shelf $s$ is represented as an ordered triple $(d, a, c)$, where $d$ is the
