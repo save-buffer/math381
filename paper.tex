@@ -106,8 +106,8 @@ assumption to ``duplicate'' shelves, defining the duplicates to be above the ori
 one. We can model depth in the same way. 
 \section{Model}
 We collected data from the robotics closet by measuring each item and shelf. Each
-shelf $s$ is represented as an ordered triple $(d, l, c)$, where $d$ is the
-distance from the door in ``shelf-lengths'', $l$ is the length of the shelf, and
+shelf $s$ is represented as an ordered triple $(d, L, c)$, where $d$ is the
+distance from the door in ``shelf-lengths'', $L$ is the length of the shelf, and
 $c$ is the connected component to which the self belongs.
 \par
 Each item is represented with an ordered triple $(l, p, s)$, where $l$ is the length
@@ -131,11 +131,14 @@ Each $w_{ij}$ and $c_{ij}$ is a binary variable, i.e. each $w_{ij}, c_{ij} \in {
 Each $w_{ij}$ is $0$ if item $j$ is not on shelf $i$ and $1$ otherwise. $c_{ij}$ is
 $1$ if subsystem $j$ lies in connected component $i$ and $0$ otherwise. 
 $C$ is a $n_c \times k$ matrix because there are l connected components and k subsystems. \\
-Note about notation: $l^i_k$ indicates the length of item $k$ while $l^s_k$ indicates the
+Note about notation: ($l^i_k$ indicates the length of item $k$ while $l^s_k$ indicates the
 length of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
-$x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. 
+$x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. Let
+there be $n_0$ shelves and $m$ items, $k$ subsystems, and $n_c$ be the number of 
+connected components.)
 \par
 The model is subject to the following constraints:
+\\
 \begin{enumerate}
 \item $\sum_{j = 1}^{m}w_{ij}l^i_j \leq l^s_i, 1 \leq i \leq n$.
 \item $\sum_{j = 1}^{n}w_{ji} = 1, 1 \leq i \leq m$.
