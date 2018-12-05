@@ -22,6 +22,7 @@ for line in f:
     items.append({
         'name' : substrs[0],
         'horizontal' : horizontal,
+        'vertical' : dims[2],
         'prob' : prob,
         'sub'  : subs[substrs[2]]
     })
@@ -103,9 +104,9 @@ for shelf in range(real_shelves):
         names = []
         to_print = '%d\t%d\t' % (shelf, shelves[shelf * STACKING]['dist'])
         split_shelf = shelf * STACKING + i
-        names += ([{'name' : items[x]['name'], 'prob' : items[x]['prob']} for x in range(len(decisions[split_shelf])) if decisions[split_shelf][x].X > 0])
+        names += ([items[x] for x in range(len(decisions[split_shelf])) if decisions[split_shelf][x].X > 0])
         names = sorted(names, key=lambda x : x['prob'], reverse=True)
         for item in names:
             print('\t' + item['name'])
-            to_print += item['name'] + '\t'
+            to_print += item['name'] + '\t' + str(item['horizontal']) + '\t' + str(item['vertical']) + '\t'
         output.write(to_print + '\n')
