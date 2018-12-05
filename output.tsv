@@ -1,14 +1,42 @@
 0	2	
+0	2	
+0	2	
+1	2	
+1	2	
 1	2	
 2	2	
+2	2	
+2	2	
+3	2	
+3	2	
 3	2	
 4	2	
-5	1	Hand Parts	Soldering Equipment	Soldering Iron	3-Cell LiPo Batteries	Barrel Jacks	Small Chargers	Jumper Wire	Voltage Regulators	Heat Shrink	Molex Connectors	Surface-Mount Capacitors	Motor Controllers 	
-6	1	Prototypes	Nuts and Bolts	6-Cell LiPo Batteries	Springs	Electronics Toolbag	6-32 and 10-32 Bolts and Nuts	Push Buttons/Switches	POE/Bullet Connectors/7-segment Displays	Encoders	Wall Power Supplies	Logic Gates	Electronics Pliers	
-7	1	Soldering Iron	Soldering Iron	3D Printed Arm Parts	Large Chargers	Long Potentiometers	Capacitors	LEDs	Heat Sinks	Motor Controllers 	Science Sensors	Science Lab Stuff	Servo Motors	AA Battery Packs	
-8	1	Small Scrap Wire	Big Scrap Wire	Headers	Crimps	Expensive motor	Drill Parts	X-Ray Box	Misc Science	Random Motors	Tiny LiPo Batteries	Arduinos	
-9	1	Power Distribution Board Parts	Breadboards	6-Cell LiPo Batteries	Wire Spools	Sketchy Power Supply	Soldering Practice	Various Chips	SMD 1K+	Small SMD	Submicron Filtered Water	Chemicals	Antenna Stuff	
-10	1	Welding Equipment	Bungee Cords	wtf	
-11	1	Velcro	String and fishing line	Old laptop	
-12	1	Hot Glue Guns	Burnt out motors	Sand	Tape Dispenser	
-13	0	NVidia Jetson	NVidia Jetson	Ethernet Cables	Ethernet Switch / Power over Ethernet	USB Cables	Minibot	Beaglebones	Sensors	Gamepads	NVidia Jetson	Ricoh Camera	
+4	2	
+4	2	
+5	1	Barrel Jacks	Small Chargers	Jumper Wire	Voltage Regulators	
+5	1	Hand Parts	Soldering Iron	Heat Shrink	Molex Connectors	
+5	1	Soldering Equipment	3-Cell LiPo Batteries	Surface-Mount Capacitors	Motor Controllers 	
+6	1	Springs	Electronics Toolbag	Push Buttons/Switches	Electronics Pliers	
+6	1	Prototypes	Nuts and Bolts	POE/Bullet Connectors/7-segment Displays	Encoders	
+6	1	6-Cell LiPo Batteries	6-32 and 10-32 Bolts and Nuts	Wall Power Supplies	Logic Gates	
+7	1	Large Chargers	Long Potentiometers	Motor Controllers 	Science Sensors	
+7	1	Soldering Iron	Soldering Iron	Capacitors	Science Lab Stuff	AA Battery Packs	
+7	1	3D Printed Arm Parts	LEDs	Heat Sinks	Servo Motors	
+8	1	Headers	Crimps	X-Ray Box	Random Motors	
+8	1	Expensive motor	Drill Parts	Tiny LiPo Batteries	
+8	1	Small Scrap Wire	Big Scrap Wire	Misc Science	Arduinos	
+9	1	6-Cell LiPo Batteries	Soldering Practice	Various Chips	Antenna Stuff	
+9	1	Power Distribution Board Parts	Breadboards	Sketchy Power Supply	Submicron Filtered Water	
+9	1	Wire Spools	SMD 1K+	Small SMD	Chemicals	
+10	1	Welding Equipment	
+10	1	Bungee Cords	wtf	
+10	1	
+11	1	Velcro	String and fishing line	
+11	1	Old laptop	
+11	1	
+12	1	Burnt out motors	
+12	1	Sand	
+12	1	Hot Glue Guns	Tape Dispenser	
+13	0	NVidia Jetson	Ethernet Cables	Ethernet Switch / Power over Ethernet	USB Cables	
+13	0	Minibot	Gamepads	NVidia Jetson	
+13	0	NVidia Jetson	Beaglebones	Sensors	Ricoh Camera	
