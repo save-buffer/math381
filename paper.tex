@@ -106,18 +106,18 @@ assumption to ``duplicate'' shelves, defining the duplicates to be above the ori
 one. We can model depth in the same way. 
 \section{Model}
 We collected data from the robotics closet by measuring each item and shelf. Each
-shelf $s$ is represented as an ordered triple $(d, L, c)$, where $d$ is the
-distance from the door in ``shelf-lengths'', $L$ is the length of the shelf, and
+shelf $s$ is represented as an ordered triple $(d, L^{shelf}, c)$, where $d$ is the
+distance from the door in ``shelf-lengths'', $L^{shelf}$ is the length of the shelf, and
 $c$ is the connected component to which the self belongs.
 \par
-Each item is represented with an ordered triple $(l, p, s)$, where $l$ is the length
+Each item is represented with an ordered triple $(L^{item}, p, s)$, where $L^{item}$ is the length
 of the item, $p$ is the probability that the item is selected, and $s$ is the item's
 subsystem. Notice that we represent each item as a 1-dimensional length. This is valid
 because we assumed that each shelf had a single unit of depth and a single
-unit of height. As a preprocessing step, minimize the length. Since we cannot always
+unit of height. As a pre-processing step, minimize the length. Since we cannot always
 rotate an item into a horizontal orientation, for an item with dimensions $a \times b$
 the item's 1-dimensional length is given by 
-$$l = \min(a, b)$$
+$$L^{item} = \min(a, b)$$
 \par
 Let there be $n_0$ shelves and $m$ items, $k$ subsystems, and $n_c$ be the number of
 connected components. In order to simulate stacking and placing behind, we
@@ -130,7 +130,7 @@ $$C = (c_{ij}), 1 \leq i \leq l, 1 \leq j \leq k$$
 Each $w_{ij}$ and $c_{ij}$ is a binary variable, i.e. each $w_{ij}, c_{ij} \in {0, 1}$.
 Each $w_{ij}$ is $0$ if item $j$ is not on shelf $i$ and $1$ otherwise. $c_{ij}$ is
 $1$ if subsystem $j$ lies in connected component $i$ and $0$ otherwise. 
-$C$ is a $n_c \times k$ matrix because there are l connected components and k subsystems. \\
+$C$ is a $n_c \times k$ matrix because there are l connected components and k subsystems. 
 Note about notation: ($l^i_k$ indicates the length of item $k$ while $l^s_k$ indicates the
 length of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
 $x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. Let
@@ -138,11 +138,10 @@ there be $n_0$ shelves and $m$ items, $k$ subsystems, and $n_c$ be the number of
 connected components.)
 \par
 The model is subject to the following constraints:
-\\
 \begin{enumerate}
-\item $\sum_{j = 1}^{m}w_{ij}l^i_j \leq l^s_i, 1 \leq i \leq n$.
-\item $\sum_{j = 1}^{n}w_{ji} = 1, 1 \leq i \leq m$.
-\item $\sum_{j = 1}^{l}c_{ji} = 1, 1 \leq i \leq k$.
+\item $\sum_{j = 1}^{m}w_{ij} L^{item}_j \leq L^{shelf}_i, $ for every $1 \leq i \leq n_0$ ($n_0 = $ number of shelves).
+\item $\sum_{i = 1}^{n}w_{ij} = 1, $ for every $1 \leq j \leq m$ ($m = $ number of items).
+\item $\sum_{j = 1}^{l}c_{ji} = 1, $ for every $1 \leq i \leq k$.
 \item Let $K$ be the set of indices of items belonging to subsystem $i$. Let
   Let $L$ be the set of indices of shelves belonging to connected component $j$.
   Then $\sum_{a \in K}\sum_{b \in L}w_{ba} = |K| \cdot c_{ji}, 1 \leq i \leq k, 1 \leq j \leq l$.
@@ -160,8 +159,8 @@ $$\min z = \sum_{i = 1}^{n}\sum_{j = 1}^{m} d_j p_i w_{ij}$$
 \item Each column of $W$ can only have one $1$, because we cannot put an item
   on two shelves simultaneously. Since each row represents a shelf, we simply
   traverse the whole column and ensure its sum is exactly $1$. Notice that if
-  we had put $\leq 1$, the constraint would have been invalid because then
-  no items would have been included. Thus, this constraint implicitly enforces
+  we had put $\leq 1$, the constraint would be invalid because then
+  no items could have been included. Thus, this constraint implicitly enforces
   the constraint that every item be included.
 \item Each column of $C$ can only have one $1$ because all items belonging to
   a subsystem must be in the same connected component, and therefore a subsystem
