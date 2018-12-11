@@ -16,17 +16,23 @@
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{titling}
 \graphicspath{{.}}
 \newtheoremstyle{named}{}{}{}{}{\bfseries}{.}{.5em}{\thmnote{#3}}
 \theoremstyle{named}
 \newtheorem*{nthm}{Theorem}
+\setlength{\droptitle}{-10em}
 \title{Optimizing the Robotics Closet}
 \author{Sasha Krassovsky, John Lim, Andrey Ryabtsev}
 \begin{document}
 \maketitle
 \begin{abstract}
-The present organization of the closet space allocated to the University of Washington's Husky Robotics team leaves much to be improved. With carefully selected simplifying assumptions, we propose a linear programming solution to the closet organization problem. Although the general packing problem is NP-hard, this application allows for a relatively reasonable simplification to one dimensional space with duplicating each shelf to represent multiple layers of items depth-wise and height-wise. The items are optimized for how distant the shelf they are put into is, and futher arranged within each shelf by probability of access. We used the Gurobi python package to solve the MILP problem, and a custom HTML5/JS script to visualize the solution output by Gurobi. The result is an organization scheme that, when implemented, can be expected to improve the average time spent by each robotics team member when visiting the closet.
+The present organization of the closet space allocated to the University of Washington's Husky Robotics team leaves much to be improved. With carefully selected simplifying assumptions, we propose a linear programming solution to the closet organization problem. Although the general packing problem is NP-hard, this application allows for a relatively reasonable simplification to one dimensional space with duplicating each shelf to represent multiple layers of items depth-wise and height-wise. The items are optimized for how distant the shelf they are put into is, and futher arranged within each shelf by probability of access. We used the Gurobi python package to solve the MILP problem, and a custom HTML5/JS script to visualize the solution output by Gurobi. The result is an organization scheme that, when implemented, can be expected to improve the average time spent when visiting the closet.
 \end{abstract}
+\begin{center}
+\includegraphics[scale=0.15]{rover.png}
+\end{center}
 \pagebreak
 
 \section{Introduction}
@@ -47,19 +53,19 @@ subsystem. Unfortunately, the robotics closet is not particularly organized, and
 members often spend on the order of 10 minutes looking for the thing they needed.
 Our goal is to find a reorganization plan for the items in the closet such that
 expected duration of each closet visit is minimized and items belonging to the
-same subsystem are in the same connected component on the shelves.
+same subsystem are in the same connected component on the shelves. By minimizing the time spent in the closet searching for items, and being able to find multiple items they need in a similar place, the team will have more time to spend building the robot each meeting.
 \par
 The closet has two shelves, one on each side. One side stores items in
 uniformly-sized boxes while the other side has several other classes of items,
 such as soldering irons, and boxes of various sizes. The rover is stored in
 the middle of the room on a big cart. Behind it is the robotic arm and the
-vscience station. In the back are the sheet metal, various metallic cylinders,
+science station. In the back are various metallic cylinders, sheet metal,
 wood, and rolls of carbon fiber. By examining the frequencies of retrieval
 by each team and treating the closet as a grid, we should be able to produce
 a better layout of the closet.
-
+\pagebreak
 \begin{center}
-  \includegraphics[scale=0.15]{closet2.jpg} \\
+  \includegraphics[scale=0.7]{closet2.png} \\
   The robotics closet before optimization. Shelves are labeled to match the solution visualization.
 \end{center}
 
@@ -80,6 +86,7 @@ rather than maximize profits.
 %\textbf{\color{red} TODO: More related work}
 
 \section{Simplifying Assumptions}
+\par
 Most items in the robotics closet are in boxes. As a result, we assume that all
 items are rectangular prisms. Although items such as the chemicals or soldering irons
 are not strictly rectangle-shaped, it would be strange for another item reached into
@@ -93,7 +100,7 @@ unboxed chunks of metal, and due to opposition to its transportation by team mem
 who frequently use it. The food pantry portion as well as some non-food items that
 made their way into it was similarly excluded after brief deliberation. Excluding
 parts of the closet from the model does not reduce the validity of the remaining
-optimization since the access to other closets is unaffected by the contents of these.
+optimization since those areas do not intrude on the access to the shelves the model does consider.
 \par
 We also assumed that there can be on average 3 items in the same 1-D linear
 segment. This means that by using some combination of placing items behind
@@ -168,11 +175,11 @@ $$\min z = \sum_{i = 1}^{n}\sum_{j = 1}^{m} d_j p_i w_{ij}$$
 \item Each column of $C$ can only have one $1$ because all items belonging to
   a subsystem must be in the same connected component, and therefore a subsystem
   can be in exactly one connected component. Similarly to constraint 2, summing
-  this and ensuring that the sum is 1 enforces the idea that every subsystem is
+  the column and ensuring that the sum is 1 enforces the idea that every subsystem is
   included.
 \item The intuition behind this constraint is that either all items belonging
-  to a subsystem are in the same connected component, or none are. Thus, we
-  use the decision variable $c_{ji}$ to choose whether the sum is $0$ or not.
+  to a subsystem are in a given connected component, or none are. Thus, we
+  use the decision variable $c_{ji}$ to choose whether the sum is $0$ or not. 
 \end{enumerate}
 
 \section{Solution and Results}
@@ -200,7 +207,7 @@ could be done by either reducing the width of each shelf or by padding the
 items on all sides to imply that there must be room between each item. This
 would also have the added benefit of making items easier to take out, since
 it is illogical to stuff some shelves to the last inch while leaving whole
-drawers to collect dust.
+drawers to collect dust. Unfortunately, the difficulty of making the model work correctly with the 1D simplification presently prevented us from tackling it, but with more time to invest, this could be fine tuned, or the model could be switched to 2D or 3D.
 
 \section{Conclusions}
 In conclusion, we are happy to have found an integer programming approach
@@ -234,4 +241,9 @@ We would like to thank:
   on - SIGGRAPH 11, 2011, doi:10.1145/1964921.1964981.  
 \end{thebibliography}
 Source code can be found at: https://github.com/save-buffer/math381
+
+\pagebreak
+\newgeometry{left=3cm,right=3cm,top=3cm,bottom=3cm}
+\section{Appendix: Solution Visualization}
+\includegraphics[scale=0.40,angle=90]{image.png}
 \end{document}
