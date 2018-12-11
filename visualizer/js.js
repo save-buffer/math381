@@ -3,10 +3,11 @@ window.onload = ()=>{
 	g.fillStyle = "black";
 
     var shelves;
-    let SCALE = 2.6,
+    let SCALE = 2.8,
         COLORS = ["128, 255, 255", "255, 128, 255", "255, 255, 128", "255, 168, 48"],
         ITEM_FILLSTYLE = "rgba(0,0,0,0.5)",
-        ALPHA = 0.24;
+        ALPHA = 0.24,
+        SHELF_COUNTS = [4, 5, 3, 1];
     
     function bindFileInput(id, f) {
         document.getElementById(id).addEventListener("change", (e)=>{
@@ -27,13 +28,13 @@ window.onload = ()=>{
     function prepItems(content) {
         let lines = content.split("\n").map(line => line.split("\t"));
         for(let idx = 0; idx < 42; idx++) {
-            let line = lines[idx];
+            let line = lines[idx >= 3 ? idx - 3: idx];
             if(line.length <= 3) continue;
             let items = [];
             for(let i = 2; i < line.length - 1; i+=3) {
                 items.push({width: parseInt(line[i+1]), height: parseInt(line[i+2])});
             }
-            let shelf = shelves[parseInt(line[0])];
+            let shelf = shelves[parseInt(line[0] - 1)];
             shelf.items = shelf.items || [];
             shelf.items.push(items);
         }
@@ -44,16 +45,19 @@ window.onload = ()=>{
         let lines = content.split("\n");
         const keys = ["dist", "width", "height", "component"];
         shelves = lines.map(line => line.replace(" x ", "\t").split("\t"));
+        shelves.shift();
         //shelves = lines.map(line => line.replace(" x ", "\t").split("\t").reduce((acc, el, i)=>{acc[keys[i]]=el;return acc;}));
         let shelfObjects = [];
-        for(shelf in shelves) {
-            shelf = shelves[shelf];
-            shelfObjects.push({
+        for(idx in shelves) {
+            shelf = shelves[idx];
+            let obj = {
                 dist: shelf[0],
                 width: parseInt(shelf[1]),
                 height: parseInt(shelf[2]),
                 component: parseInt(shelf[3])
-            });
+            };
+            if(idx == 0) obj.height *= 2;
+            shelfObjects.push(obj);
         }
         shelves = shelfObjects;
     }
@@ -85,7 +89,7 @@ window.onload = ()=>{
 
     function draw() {
         g.font="20px Times New Roman";
-        let shelfDistance = 2, xOffset = 40, yRow = c.height / 3.0, yCur = 0;
+        let shelfDistance = 2, xOffset = 40, yRow = c.height / 3.0, yCur = 0, shelfCount = -1, lastComp = -1;
         line(0, yRow, c.width, yRow);
         line(0, 2 * yRow, c.width, 2 * yRow);
         for(let i =0; i <= shelfDistance; i++) {
@@ -98,6 +102,11 @@ window.onload = ()=>{
                 shelfDistance = shelf.dist;
                 yCur = (2 - shelfDistance) * yRow;
             }
+            if(lastComp != shelf.component) {
+                shelfCount = -1;
+                lastComp = shelf.component;
+            }
+            shelfCount++;
             g.beginPath();
             g.rect(xOffset, yCur + 40, SCALE * shelf.width, SCALE * shelf.height);
             g.stroke();
@@ -108,6 +117,8 @@ window.onload = ()=>{
             g.scale(SCALE, -SCALE);
             drawShelf(shelf);
             g.restore();
+            g.fillStyle = "red";
+            g.fillText("Shelf " + String.fromCharCode(65 + shelf.component) + shelfCount, xOffset, yCur + 60);
             xOffset += SCALE * shelf.width + 40;
             if(idx == shelves.length - 1 || xOffset > 1200) {
                 xOffset = 40;
