@@ -28,7 +28,7 @@ window.onload = ()=>{
     function prepItems(content) {
         let lines = content.split("\n").map(line => line.split("\t"));
         for(let idx = 0; idx < 42; idx++) {
-            let line = lines[idx >= 3 ? idx - 3: idx];
+            let line = lines[idx];
             if(line.length <= 3) continue;
             let items = [];
             for(let i = 2; i < line.length - 1; i+=3) {

@@ -24,6 +24,9 @@
 \author{Sasha Krassovsky, John Lim, Andrey Ryabtsev}
 \begin{document}
 \maketitle
+\begin{abstract}
+The present organization of the closet space allocated to the University of Washington's Husky Robotics team leaves much to be improved. With carefully selected simplifying assumptions, we propose a linear programming solution to the closet organization problem. Although the general packing problem is NP-hard, this application allows for a relatively reasonable simplification to one dimensional space with duplicating each shelf to represent multiple layers of items depth-wise and height-wise. The items are optimized for how distant the shelf they are put into is, and futher arranged within each shelf by probability of access. We used the Gurobi python package to solve the MILP problem, and a custom HTML5/JS script to visualize the solution output by Gurobi. The result is an organization scheme that, when implemented, can be expected to improve the average time spent by each robotics team member when visiting the closet.
+\end{abstract}
 \pagebreak
 
 \section{Introduction}
