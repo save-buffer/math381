@@ -141,7 +141,7 @@ Each $w_{ij}$ and $c_{ij}$ is a binary variable, i.e. each $w_{ij}, c_{ij} \in {
 Each $w_{ij}$ is $0$ if item $j$ is not on shelf $i$ and $1$ otherwise. $c_{ij}$ is
 $1$ if subsystem $j$ lies in connected component $i$ and $0$ otherwise. 
 $C$ is a $n_c \times k$ matrix because there are l connected components and k subsystems. 
-Note about notation: ($l^i_k$ indicates the length of item $k$ while $l^s_k$ indicates the
+Note about notation: ($L^{item}_k$ indicates the length of item $k$ while $L^{shelf}_k$ indicates the
 length of shelf k. $I$ is the set of items and $S$ is the set of shelves. For any item
 $x$, $p_x$ and $s_x$ represent the item's probability and subsystem respectively. Let
 there be $n_0$ shelves and $m$ items, $k$ subsystems, and $n_c$ be the number of 
@@ -149,7 +149,7 @@ connected components.)
 \par
 The model is subject to the following constraints:
 \begin{enumerate}
-\item $\sum_{j = 1}^{m}w_{ij} L^{item}_j \leq L^{shelf}_i, $ for every $1 \leq i \leq n_0$ ($n_0 = $ number of shelves).
+\item $\sum_{j = 1}^{m}w_{ij} L^{item}_j \leq L^{shelf}_i, $ for every $1 \leq i \leq n$ ($n = $ number of shelves, including stacking).
 \item $\sum_{i = 1}^{n}w_{ij} = 1, $ for every $1 \leq j \leq m$ ($m = $ number of items).
 \item $\sum_{j = 1}^{l}c_{ji} = 1, $ for every $1 \leq i \leq k$.
 \item Let $K$ be the set of indices of items belonging to subsystem $i$. Let
@@ -196,7 +196,8 @@ Only the shelves that have distance 2 (highest distance in the input data set)
 are left empty. This is an indication that proximity is, in fact, taken into
 account by the model. Finally, LiPo batteries are placed onto the same drawer,
 as are NVIDIA Jetsons and other closely related items. This validates that the
-connected components constraint is being considered.
+connected components constraint is being considered. A visualization of our
+result is included in the appendix. 
 
 \section{Improvements}
 We noticed that the model packed together very many items while leaving four
@@ -207,7 +208,10 @@ could be done by either reducing the width of each shelf or by padding the
 items on all sides to imply that there must be room between each item. This
 would also have the added benefit of making items easier to take out, since
 it is illogical to stuff some shelves to the last inch while leaving whole
-drawers to collect dust. Unfortunately, the difficulty of making the model work correctly with the 1D simplification presently prevented us from tackling it, but with more time to invest, this could be fine tuned, or the model could be switched to 2D or 3D.
+drawers to collect dust. Unfortunately, the difficulty of making the model
+work correctly with the 1D simplification presently prevented us from tackling
+it, but with more time to invest, this could be fine tuned, or the model
+could be switched to 2D or 3D.
 
 \section{Conclusions}
 In conclusion, we are happy to have found an integer programming approach
@@ -225,6 +229,7 @@ We would like to thank:
 \item Nolan Donovan for working with us to understand and solve this problem.
 \end{itemize}
 
+\pagebreak
 \section{References}
 \begin{thebibliography}{9}
 \bibitem{volleyball} Guido Cocchi, Alessandro Galligari, Federica Picca Nicolino,
@@ -245,5 +250,5 @@ Source code can be found at: https://github.com/save-buffer/math381
 \pagebreak
 \newgeometry{left=3cm,right=3cm,top=3cm,bottom=3cm}
 \section{Appendix: Solution Visualization}
-\includegraphics[scale=0.40,angle=90]{image.png}
+\includegraphics[scale=0.40,angle=90]{visualizer/image.png}
 \end{document}
